@@ -1,14 +1,11 @@
 package com.xiaoooooobawang.usercenter.model.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 用户
@@ -75,8 +72,16 @@ public class Users implements Serializable {
 
     /**
      * 是否删除
+     * 需要加逻辑删除注解，并在配置文件中配置
      */
+    @TableLogic
     private Integer deleted;
+
+    /**
+     * 用户角色
+     * 0-普通影虎， 1-管理员
+     */
+    private Integer userRole;
 
     @Serial
     @TableField(exist = false)
