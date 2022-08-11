@@ -64,9 +64,9 @@ class UsersMapperTest {
 
         //上面都是各种校验不通过的测试
         //下面就是正常情况的测试
-        userAccount = "hgfh";
-        userPassword = "fdsfsdfsd";
-        checkPassword = "fdsfsdfsd";
+        userAccount = "XiaooooooBawang";
+        userPassword = "12345678";
+        checkPassword = "12345678";
         res = usersService.userRegister(userAccount, userPassword, checkPassword);
         Assertions.assertTrue(res > 0);
     }

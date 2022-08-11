@@ -139,22 +139,11 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
             return null;
         }
 
+
         /*
             4、用户脱敏
          */
-        Users cleanedUser = new Users();
-        cleanedUser.setId(user.getId());
-        cleanedUser.setUserName(user.getUserName());
-        cleanedUser.setUserAccount(user.getUserAccount());
-        cleanedUser.setAvatarUrl(user.getAvatarUrl());
-        cleanedUser.setGender(user.getGender());
-        cleanedUser.setEmail(user.getEmail());
-        cleanedUser.setUserStatus(user.getUserStatus());
-        cleanedUser.setPhone(user.getPhone());
-        cleanedUser.setCreateTime(user.getCreateTime());
-        cleanedUser.setUpdateTime(user.getCreateTime());
-        cleanedUser.setUserRole(user.getUserRole());
-
+        Users cleanedUser = getCleanedUser(user);
 
         /*
             5、记录用户登录态
@@ -163,6 +152,30 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
 
         return cleanedUser;
     }
+
+    /**
+     * 用户脱敏
+     *
+     * @param originUser 原始用户数据
+     * @return 脱敏后的用户数据
+     */
+    @Override
+    public Users getCleanedUser(Users originUser) {
+        Users cleanedUser = new Users();
+        cleanedUser.setId(originUser.getId());
+        cleanedUser.setUserName(originUser.getUserName());
+        cleanedUser.setUserAccount(originUser.getUserAccount());
+        cleanedUser.setAvatarUrl(originUser.getAvatarUrl());
+        cleanedUser.setGender(originUser.getGender());
+        cleanedUser.setEmail(originUser.getEmail());
+        cleanedUser.setUserStatus(originUser.getUserStatus());
+        cleanedUser.setPhone(originUser.getPhone());
+        cleanedUser.setCreateTime(originUser.getCreateTime());
+        cleanedUser.setUpdateTime(originUser.getCreateTime());
+        cleanedUser.setUserRole(originUser.getUserRole());
+        return cleanedUser;
+    }
+
 }
 
 

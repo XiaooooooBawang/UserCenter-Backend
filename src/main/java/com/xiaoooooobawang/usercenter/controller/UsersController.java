@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.xiaoooooobawang.usercenter.constant.UsersConstant.ADMIN_ROLE;
 import static com.xiaoooooobawang.usercenter.constant.UsersConstant.USER_LOGIN_STATUS;
@@ -27,7 +28,7 @@ public class UsersController {
     @Resource
     private UsersService usersService;
 
-    @PostMapping("/userRegister")
+    @PostMapping("/register")
     public Long userRegister(@RequestBody UsersRegisterRequest usersRegisterRequest) {
         if (usersRegisterRequest == null) {
             return null;
@@ -41,7 +42,7 @@ public class UsersController {
         return usersService.userRegister(userAccount, userPassword, checkPassword);
     }
 
-    @PostMapping("/userLogin")
+    @PostMapping("/login")
     public Users userLogin(@RequestBody UsersLoginRequest usersLoginRequest, HttpServletRequest httpServletRequest) {
         if (usersLoginRequest == null) {
             return null;
@@ -66,7 +67,8 @@ public class UsersController {
 
             queryWrapper.like("user_name", userName);
         }
-        return usersService.list(queryWrapper);
+        List<Users> usersList = usersService.list(queryWrapper);
+        return usersList.stream().map(user -> usersService.getCleanedUser(user)).collect(Collectors.toList());
     }
 
     @PostMapping("/delete")
