@@ -35,31 +35,32 @@ class UsersMapperTest {
         String userAccount = "dfjs";
         String userPassword = "";   //空
         String checkPassword = "lfsdfsdl";
-        Long res = usersService.userRegister(userAccount, userPassword, checkPassword);
+        String planetCode = "1";
+        Long res = usersService.userRegister(userAccount, userPassword, checkPassword, planetCode);
         Assertions.assertEquals(-1, res);
 
         userAccount = "dfjs";
         userPassword = "dfsd";  //密码小于8位
         checkPassword = "dfsd";
-        res = usersService.userRegister(userAccount, userPassword, checkPassword);
+        res = usersService.userRegister(userAccount, userPassword, checkPassword, planetCode);
         Assertions.assertEquals(-1, res);
 
         userAccount = "fh js";  //包含特殊字符
         userPassword = "fdsfsdfsd";
         checkPassword = "fdsfsdfsd";
-        res = usersService.userRegister(userAccount, userPassword, checkPassword);
+        res = usersService.userRegister(userAccount, userPassword, checkPassword, planetCode);
         Assertions.assertEquals(-1, res);
 
         userAccount = "dfjs";
         userPassword = "fdsfsdfsd";
         checkPassword = "fdsfsdfsddf";  //二次密码不相同
-        res = usersService.userRegister(userAccount, userPassword, checkPassword);
+        res = usersService.userRegister(userAccount, userPassword, checkPassword, planetCode);
         Assertions.assertEquals(-1, res);
 
         userAccount = "1234";  //账户名已存在
         userPassword = "fdsfsdfsd";
         checkPassword = "fdsfsdfsd";
-        res = usersService.userRegister(userAccount, userPassword, checkPassword);
+        res = usersService.userRegister(userAccount, userPassword, checkPassword, planetCode);
         Assertions.assertEquals(-1, res);
 
         //上面都是各种校验不通过的测试
@@ -67,7 +68,7 @@ class UsersMapperTest {
         userAccount = "XiaooooooBawang";
         userPassword = "12345678";
         checkPassword = "12345678";
-        res = usersService.userRegister(userAccount, userPassword, checkPassword);
+        res = usersService.userRegister(userAccount, userPassword, checkPassword, planetCode);
         Assertions.assertTrue(res > 0);
     }
 }
