@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -114,7 +116,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
             1、校验
          */
 
-        //这里用了common-lang3中的工具类，判断这三个参数是否存在空参数
+        //这里用了common-lang3中的工具类，判断这两个参数是否存在空参数
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数为空");
         }
@@ -146,8 +148,10 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users>
             3、查询用户
          */
         QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_account", userAccount);
-        queryWrapper.eq("user_password", encryptedPassword);
+        Map<String, String> map = new HashMap<>();
+        map.put("user_account", userAccount);
+        map.put("user_password", encryptedPassword);
+        queryWrapper.allEq(map);
         Users user = this.getOne(queryWrapper);
         //用户不存在
         if (user == null) {
