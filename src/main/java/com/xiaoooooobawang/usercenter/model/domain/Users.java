@@ -74,7 +74,7 @@ public class Users implements Serializable {
      * 是否删除
      * 需要加逻辑删除注解，并在配置文件中配置
      */
-    @TableLogic
+    @TableLogic(value = "0", delval = "1")
     private Integer deleted;
 
     /**
